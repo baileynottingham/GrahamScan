@@ -36,7 +36,7 @@ class Heap {
         }
         i++;
       }
-      
+
     // Find bottom one
     int ymin = points[1].getY();
     int min = 1;
@@ -62,6 +62,7 @@ class Heap {
       for(int x = (heapsize / 2); x >= 0; x--) {
         MaxHeapify(x);
       }
+      
       printArray(points);
       println(points.length);
     }
@@ -108,4 +109,37 @@ class Heap {
   void setIndex(Point p, int i) {
     points[i] = p;
   }
+  
+  
+  
+  
+  void deleteMax() {
+    /********
+    Replace the root node with the last element in the heap
+    Remove the last element
+    Swap (i.e. heapify) the new root with its child until the correct position has found (See MAX-HEAPIFY)
+
+    
+    ********/
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
