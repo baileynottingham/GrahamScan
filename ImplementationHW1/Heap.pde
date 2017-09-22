@@ -5,7 +5,6 @@ class Heap {
   Point[] points;
 
   Heap(String filename) {
-
     BufferedReader read;
     String str;
     int i = 1;
@@ -43,16 +42,15 @@ class Heap {
       e.printStackTrace();
     }
   }
-  
+
   void MaxHeapify(int i) {
-    
   }
 
   Point[] getArray() {
     return points;
   }
-  
+
   void setIndex(Point p, int i) {
-   points[i] = p;
+    points[i] = p;
   }
 }

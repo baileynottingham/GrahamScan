@@ -2,6 +2,7 @@
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
+
 //Buttons
 Button readFileButton;
 Button restartButton;
@@ -45,6 +46,9 @@ void draw() {
   if (points != null) {
     stroke(0);
     for ( Point p : points ) {
+      if ( p == null ) {
+        continue;
+      }
       ellipse( p.getX(), p.getY(), 10, 10 );
     }
   }
@@ -90,26 +94,8 @@ void handleReadFileButton() {
 }
 
 void processFile( String fileName ) {
-  BufferedReader reader;
-  String line;
-  reader = createReader( fileName );
-  try {
-    line = reader.readLine();
-    points = new Point[ Integer.parseInt(line) ];
-  } 
-  catch ( Exception e ) {
-    javax.swing.JOptionPane.showMessageDialog(null, "Bad input file. Please select valid file." );
-    return;
-  }
-  for ( int i = 0; i < points.length; ++i ) {
-    try {
-      String[] ints = reader.readLine().split("\\s+");
-      points[i] = new Point( Integer.parseInt( ints[0] ), Integer.parseInt( ints[1] ) );
-    } 
-    catch ( Exception e ) {
-      return;
-    }
-  }
+  heap = new Heap( fileName );
+  points = heap.getArray();
   return;
 }
 

@@ -5,34 +5,33 @@
  * 
  * Description: 
  *-------------------------------------------------------------------------------------------*/
- 
+
 class Point {
   int x;
   int y;
-  
+
   Point(int x, int y) {
-   this.x = x;
-   this.y = y;
+    this.x = x;
+    this.y = y;
   }
-  
+
   int getX() {
-   return x; 
+    return x;
   }
-  
+
   int getY() {
-   return y; 
+    return y;
   } 
-  
+
   void setX(int x) {
-   this.x = x; 
+    this.x = x;
   }
-  
+
   void setY(int y) {
-   this.y = y; 
+    this.y = y;
   }
-  
+
   String toString() {
-   return "(" + x +", " + y + ")"; 
+    return "(" + x +", " + y + ")";
   }
-   
- }
+}

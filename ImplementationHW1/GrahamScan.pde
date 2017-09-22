@@ -1,5 +1,4 @@
 
-
 class GrahamScan {
 
   Heap heap;
