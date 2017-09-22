@@ -27,7 +27,6 @@ void setup() {
   sortButton = new Button("Sort", 275, 450, 115, 35);
   nextButton = new Button("Next", 405, 450, 115, 35);
   quitButton = new Button("Quit", 535, 450, 115, 35);
-  heap = new Heap("test.in");
 }
 
 void draw() {
@@ -55,18 +54,7 @@ void draw() {
 }
 
 void mousePressed() {
-  if (mouseButton == LEFT) {
-    heap = new Heap("test.in");
-    //    println("----");
-    //    printArray(heap.points);
-    println("Graham Scan --------");
-    scan = new GrahamScan(heap);
-    println("Bottom Point");
-    println(scan.bottomPoint);
-    println("MaxHeapify");
-    heap.MaxHeapify(1);
-    printArray(heap.getArray());
-  }
+
 
   // user presses "Restart"
   if (restartButton.mouseOver()) {
