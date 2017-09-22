@@ -4,8 +4,8 @@ Heap heap;
 GrahamScan scan;
 
 void setup() {
-  
-  heap = new Heap("test.in");
+ size(600,600);
+ background(0,0,0);
 }
 
 void draw() {
@@ -14,6 +14,7 @@ void draw() {
 
 void mousePressed() {
  if(mouseButton == LEFT) {
+   heap = new Heap("test.in");
  //    println("----");
  //    printArray(heap.points);
      println("Graham Scan --------");
