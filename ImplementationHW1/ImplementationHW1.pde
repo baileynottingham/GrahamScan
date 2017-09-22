@@ -63,6 +63,9 @@ void mousePressed() {
     scan = new GrahamScan(heap);
     println("Bottom Point");
     println(scan.bottomPoint);
+    println("MaxHeapify");
+    heap.MaxHeapify(1);
+    printArray(heap.getArray());
   }
 
   // user presses "Restart"

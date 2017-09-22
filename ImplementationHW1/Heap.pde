@@ -5,6 +5,7 @@ class Heap {
   Point[] points;
 
   Heap(String filename) {
+
     BufferedReader read;
     String str;
     int i = 1;
@@ -44,6 +45,34 @@ class Heap {
   }
 
   void MaxHeapify(int i) {
+    int left = 2 * i;
+    int right = (2 * i) + 1;
+    int largest;
+    int comparison = 0;
+
+    if (left < points.length) {
+      comparison = (points[left].getX() - points[1].getX()) * (points[1].getY() - points[1].getY()) - (points[i].getX() - points[1].getX()) * (points[left].getY() - points[1].getY());
+    }
+    if (left < points.length && comparison < 0) {
+      largest = left;
+    } else {
+      largest = i;
+    }
+
+    // 
+    if (right < points.length) {
+      comparison = (points[right].getX() - points[1].getX()) * (points[largest].getY() - points[1].getY()) - (points[largest].getX() - points[1].getX()) * (points[right].getY() - points[1].getY());
+    }
+    if (right < points.length && comparison < 0) {
+      largest = right;
+    }
+
+    if (largest != i) {
+      Point temp = points[largest];
+      points[largest] = points[i];
+      points[i] = temp;
+      MaxHeapify(largest);
+    }
   }
 
   Point[] getArray() {
