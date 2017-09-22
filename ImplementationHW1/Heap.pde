@@ -1,8 +1,9 @@
- //<>// //<>// //<>//
+ //<>// //<>// //<>// //<>// //<>// //<>//
 
 
 class Heap {
   Point[] points;
+  int heapsize;
 
   Heap(String filename) {
 
@@ -36,6 +37,8 @@ class Heap {
         }
         i++;
       }
+      
+      heapsize = points.length -1;
       println("Read from file");
       printArray(points);
       println(points.length);
@@ -64,10 +67,10 @@ class Heap {
       printArray(points);
 
       // MAXHEAPIFY
-      int heapsize = points.length - 1;
-      for (int x = (heapsize / 2); x > 1; x--) {
+      for (int x = (heapsize / 2); x >= 1; x--) { //<>//
         MaxHeapify(x);
       }
+      HeapSort();
       println("Heapfied");
       printArray(points);
     }
@@ -86,9 +89,9 @@ class Heap {
     int rightArea;  // = findArea(right);
     int IArea = findArea(i);
 
-    if (left < points.length) {
+    if (left < heapsize) {
       leftArea = findArea(left);
-      if (leftArea > IArea) {
+      if (leftArea < IArea) {
         largest = left;
       } else {
         largest = i;
@@ -99,9 +102,9 @@ class Heap {
       }
 
 
-    if (right < points.length) {
+    if (right < heapsize) {
       rightArea = findArea(right);
-      if(rightArea > findArea(largest)) {
+      if(rightArea < findArea(largest)) {
         largest = right;
       }
     }
@@ -117,15 +120,26 @@ class Heap {
   Point[] getArray() {
     return points;
   }
+  
+  void HeapSort() {
+   for(int i = heapsize; i >= 2; i--) {
+     Point temp = points[1];
+     points[1] = points[i];
+     points[i] = temp;
+     heapsize = heapsize - 1;
+     MaxHeapify(1);
+   }
+  }
 
   void setIndex(Point p, int i) {
     points[i] = p;
   }
 
   int findArea(int leaf) {
-    return ( (points[leaf].getX() * points[1].getY()) - (points[leaf].getY() * points[1].getX()))
-      - ((0 * points[1].getY()) - (0 * points[1].getX())
-      + ( (0 * points[leaf].getY()) - ( 0 * points[leaf].getX()) ));
+    //return ( (points[leaf].getX() * points[1].getY()) - (points[leaf].getY() * points[1].getX()))
+    //  - ((0 * points[1].getY()) - (0 * points[1].getX())
+    //  + ( (0 * points[leaf].getY()) - ( 0 * points[leaf].getX()) ));
+    return ( (points[1].getX() - 0) * (points[leaf].getY() - 0) - (points[leaf].getX() - 0) * (points[1].getY() - 0) );
   }
 
 
