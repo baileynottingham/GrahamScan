@@ -63,8 +63,8 @@ class Heap {
     printArray(points);
     
     // MAXHEAPIFY
-    int heapsize = points.length; //<>//
-      for(int x = (heapsize / 2); x >= 1; x--) {
+    int heapsize = points.length;
+      for(int x = (heapsize / 2); x > 1; x--) {
         MaxHeapify(x);
       }
       println("Heapfied");
@@ -105,6 +105,8 @@ class Heap {
       points[i] = temp;
       MaxHeapify(largest);
     }
+  //  println("After one Max Heap");
+  //  printArray(points);
   }
 
   Point[] getArray() {

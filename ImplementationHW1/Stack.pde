@@ -6,8 +6,9 @@
  */
 
 class Stack {
-  private Point[] stackArray;
+  Point[] stackArray;
   private int top;
+  int counter = 0;
 
   public Stack( int size ) {
     this.top = -1;
@@ -20,6 +21,7 @@ class Stack {
       return;
     }
     stackArray[ ++top ] = p;
+    counter++;
   }
 
   public Point pop() {
@@ -27,6 +29,7 @@ class Stack {
       System.err.println( "Stack[ pop ]: stack is empty." );
       return null;
     }
+    counter--;
     return stackArray[ top-- ];
   }
 

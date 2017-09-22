@@ -17,6 +17,8 @@ Point point;
 Heap heap;
 GrahamScan scan;
 
+boolean sorted = false;
+
 void setup() {
   size(800, 500);
   smooth();
@@ -50,6 +52,12 @@ void draw() {
       }
       ellipse( p.getX(), p.getY(), 10, 10 );
     }
+  }
+  
+  if(sorted == true) {
+   for(int i = 1; i < scan.stack.counter - 1; i++) {
+      line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
+   }
   }
 }
 
@@ -91,6 +99,9 @@ void processFile( String fileName ) {
 }
 
 void handleSortButton() {
+  scan = new GrahamScan(heap);
+  sorted = true;
+  
 }
 
 void restart() {
