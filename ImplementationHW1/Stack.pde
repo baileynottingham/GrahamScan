@@ -16,7 +16,7 @@ class Stack {
 
   public void push( Point p ) {
     if ( isFull() ) {
-      System.err.println( "STACK IS EMPTY." );
+      System.err.println( "Stack[ push ]: stack is full." );
       return;
     }
     stackArray[ ++top ] = p;
