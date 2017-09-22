@@ -1,8 +1,9 @@
-
+ //<>// //<>// //<>// //<>// //<>// //<>//
 
 
 class Heap {
   Point[] points;
+  int heapsize;
 
   Heap(String filename) {
 
@@ -36,40 +37,42 @@ class Heap {
         }
         i++;
       }
+      
+      heapsize = points.length -1;
       println("Read from file");
       printArray(points);
+      println(points.length);
 
-    // Find bottom one
-    int ymin = points[1].getY();
-    int min = 1;
-    for (int z = 1; z < points.length; z++) {
+      // Find bottom one
+      int ymin = points[1].getY();
+      int min = 1;
+      for (int z = 1; z < points.length; z++) {
 
-      int y = points[z].getY();
-      // Pick the bottom most or choose the left
+        int y = points[z].getY();
+        // Pick the bottom most or choose the left
 
-      // in case of tie
+        // in case of tie
 
-      if ((y < ymin) || (ymin == y && points[z].getX() < points[min].getX())) {
-        ymin = points[z].getY();
-        min = z;
+        if ((y < ymin) || (ymin == y && points[z].getX() < points[min].getX())) {
+          ymin = points[z].getY();
+          min = z;
+        }
       }
-    }
-    // Swap bottom most to front of the heap
-    Point temp = points[1];
-    setIndex(points[min], 1);
-    setIndex(temp, min);
-    
-    println("Swapped");
-    printArray(points);
-    
-    // MAXHEAPIFY
-    int heapsize = points.length;
-      for(int x = (heapsize / 2); x > 1; x--) {
+      // Swap bottom most to front of the heap
+      Point temp = points[1];
+      setIndex(points[min], 1);
+      setIndex(temp, min);
+
+      println("Swapped");
+      printArray(points);
+
+      // MAXHEAPIFY
+      for (int x = (heapsize / 2); x >= 1; x--) { //<>//
         MaxHeapify(x);
       }
+      HeapSort();
       println("Heapfied");
       printArray(points);
-    
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -80,23 +83,30 @@ class Heap {
     int left = 2 * i;
     int right = (2 * i) + 1;
     int largest;
-    int comparison = 0;
 
-    if (left < points.length) {
-      comparison = (points[left].getX() - points[1].getX()) * (points[i].getY() - points[1].getY()) - (points[i].getX() - points[1].getX()) * (points[left].getY() - points[1].getY());
-    }
-    if (left < points.length && comparison < 0) {
-      largest = left;
-    } else {
-      largest = i;
-    }
 
-    // 
-    if (right < points.length) {
-      comparison = (points[right].getX() - points[1].getX()) * (points[largest].getY() - points[1].getY()) - (points[largest].getX() - points[1].getX()) * (points[right].getY() - points[1].getY());
+    int leftArea;
+    int rightArea;  // = findArea(right);
+    int IArea = findArea(i);
+
+    if (left < heapsize) {
+      leftArea = findArea(left);
+      if (leftArea < IArea) {
+        largest = left;
+      } else {
+        largest = i;
+      }
     }
-    if (right < points.length && comparison < 0) {
-      largest = right;
+    else {
+        largest = i;
+      }
+
+
+    if (right < heapsize) {
+      rightArea = findArea(right);
+      if(rightArea < findArea(largest)) {
+        largest = right;
+      }
     }
 
     if (largest != i) {
@@ -105,48 +115,43 @@ class Heap {
       points[i] = temp;
       MaxHeapify(largest);
     }
-  //  println("After one Max Heap");
-  //  printArray(points);
   }
 
   Point[] getArray() {
     return points;
   }
+  
+  void HeapSort() {
+   for(int i = heapsize; i >= 2; i--) {
+     Point temp = points[1];
+     points[1] = points[i];
+     points[i] = temp;
+     heapsize = heapsize - 1;
+     MaxHeapify(1);
+   }
+  }
 
   void setIndex(Point p, int i) {
     points[i] = p;
   }
-  
-  
-  
-  
-  void deleteMax() {
-    /********
-    Replace the root node with the last element in the heap
-    Remove the last element
-    Swap (i.e. heapify) the new root with its child until the correct position has found (See MAX-HEAPIFY)
 
-    
-    ********/
+  int findArea(int leaf) {
+    //return ( (points[leaf].getX() * points[1].getY()) - (points[leaf].getY() * points[1].getX()))
+    //  - ((0 * points[1].getY()) - (0 * points[1].getX())
+    //  + ( (0 * points[leaf].getY()) - ( 0 * points[leaf].getX()) ));
+    return ( (points[1].getX() - 0) * (points[leaf].getY() - 0) - (points[leaf].getX() - 0) * (points[1].getY() - 0) );
   }
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  void deleteMax() {
+    /********
+     Replace the root node with the last element in the heap
+     Remove the last element
+     Swap (i.e. heapify) the new root with its child until the correct position has found (See MAX-HEAPIFY)
+     
+     
+     ********/
+  }
 }
