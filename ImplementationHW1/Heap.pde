@@ -36,6 +36,8 @@ class Heap {
         }
         i++;
       }
+      println("Read from file");
+      printArray(points);
 
     // Find bottom one
     int ymin = points[1].getY();
@@ -57,14 +59,17 @@ class Heap {
     setIndex(points[min], 1);
     setIndex(temp, min);
     
+    println("Swapped");
+    printArray(points);
+    
     // MAXHEAPIFY
-    int heapsize = points.length;
-      for(int x = (heapsize / 2); x >= 0; x--) {
+    int heapsize = points.length; //<>//
+      for(int x = (heapsize / 2); x >= 1; x--) {
         MaxHeapify(x);
       }
-      
+      println("Heapfied");
       printArray(points);
-      println(points.length);
+    
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -77,20 +82,20 @@ class Heap {
     int largest;
     int comparison = 0;
 
-    if (left < points.length - 1) {
-      comparison = (points[left].getX() - points[1].getX()) * (points[1].getY() - points[1].getY()) - (points[i].getX() - points[1].getX()) * (points[left].getY() - points[1].getY());
+    if (left < points.length) {
+      comparison = (points[left].getX() - points[1].getX()) * (points[i].getY() - points[1].getY()) - (points[i].getX() - points[1].getX()) * (points[left].getY() - points[1].getY());
     }
-    if (left < points.length - 1 && comparison < 0) {
+    if (left < points.length && comparison < 0) {
       largest = left;
     } else {
       largest = i;
     }
 
     // 
-    if (right < points.length - 1) {
+    if (right < points.length) {
       comparison = (points[right].getX() - points[1].getX()) * (points[largest].getY() - points[1].getY()) - (points[largest].getX() - points[1].getX()) * (points[right].getY() - points[1].getY());
     }
-    if (right < points.length - 1 && comparison < 0) {
+    if (right < points.length && comparison < 0) {
       largest = right;
     }
 
