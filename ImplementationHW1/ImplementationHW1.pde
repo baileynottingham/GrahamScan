@@ -1,4 +1,4 @@
-/**
+/** //<>//
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
@@ -53,11 +53,17 @@ void draw() {
       ellipse( p.getX(), p.getY(), 10, 10 );
     }
   }
-  
-  if(sorted == true) {
-   for(int i = 0; i < scan.stack.counter - 1; i++) { //<>// //<>//
-      line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
-   }
+
+  if (sorted == true) {
+    points = heap.getArray();
+    for (int i = 1; i < heap.getArray().length; ++i) {
+      text( Integer.toString(i-1), points[i].getX(), points[i].getY() );
+    }
+    /*****
+     for(int i = 0; i < scan.stack.counter - 1; i++) {
+     text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
+     line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
+     } *****/
   }
 }
 
@@ -101,7 +107,6 @@ void processFile( String fileName ) {
 void handleSortButton() {
   scan = new GrahamScan(heap);
   sorted = true;
-  
 }
 
 void restart() {
