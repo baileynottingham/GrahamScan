@@ -55,7 +55,7 @@ void draw() {
   }
   
   if(sorted == true) {
-   for(int i = 1; i < scan.stack.counter - 1; i++) {
+   for(int i = 0; i <= scan.stack.counter - 1; i++) { //<>//
       line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
    }
   }

@@ -10,10 +10,10 @@ class GrahamScan {
     
     stack = new Stack(heap.getArray().length);
     
-    stack.push(heap.getArray()[0]);
     stack.push(heap.getArray()[1]);
     stack.push(heap.getArray()[2]);
-    for(int i = 3; i < heap.getArray().length; i++) {
+    stack.push(heap.getArray()[3]);
+    for(int i = 4; i < heap.getArray().length; i++) {
       while(notLeftTurn(stack.peekNextToTop(), stack.top(), heap.getArray()[i])) {
          stack.pop(); 
       }
