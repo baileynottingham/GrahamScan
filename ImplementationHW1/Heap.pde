@@ -36,6 +36,7 @@ class Heap {
         }
         i++;
       }
+      MaxHeapify(1);
       printArray(points);
       println(points.length);
     }
@@ -50,7 +51,7 @@ class Heap {
     int largest;
     int comparison = 0;
 
-    if (left < points.length) {
+    if (left < points.length - 1) {
       comparison = (points[left].getX() - points[1].getX()) * (points[1].getY() - points[1].getY()) - (points[i].getX() - points[1].getX()) * (points[left].getY() - points[1].getY());
     }
     if (left < points.length && comparison < 0) {
