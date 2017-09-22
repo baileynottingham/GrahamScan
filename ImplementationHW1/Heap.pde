@@ -36,7 +36,32 @@ class Heap {
         }
         i++;
       }
-      MaxHeapify(1);
+      
+    // Find bottom one
+    int ymin = points[1].getY();
+    int min = 1;
+    for (int z = 1; z < points.length; z++) {
+
+      int y = points[z].getY();
+      // Pick the bottom most or choose the left
+
+      // in case of tie
+
+      if ((y < ymin) || (ymin == y && points[z].getX() < points[min].getX())) {
+        ymin = points[z].getY();
+        min = z;
+      }
+    }
+    // Swap bottom most to front of the heap
+    Point temp = points[1];
+    setIndex(points[min], 1);
+    setIndex(temp, min);
+    
+    // MAXHEAPIFY
+    int heapsize = points.length;
+      for(int x = (heapsize / 2); x >= 0; x--) {
+        MaxHeapify(x);
+      }
       printArray(points);
       println(points.length);
     }
@@ -54,17 +79,17 @@ class Heap {
     if (left < points.length - 1) {
       comparison = (points[left].getX() - points[1].getX()) * (points[1].getY() - points[1].getY()) - (points[i].getX() - points[1].getX()) * (points[left].getY() - points[1].getY());
     }
-    if (left < points.length && comparison < 0) {
+    if (left < points.length - 1 && comparison < 0) {
       largest = left;
     } else {
       largest = i;
     }
 
     // 
-    if (right < points.length) {
+    if (right < points.length - 1) {
       comparison = (points[right].getX() - points[1].getX()) * (points[largest].getY() - points[1].getY()) - (points[largest].getX() - points[1].getX()) * (points[right].getY() - points[1].getY());
     }
-    if (right < points.length && comparison < 0) {
+    if (right < points.length - 1 && comparison < 0) {
       largest = right;
     }
 
