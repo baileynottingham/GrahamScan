@@ -32,6 +32,7 @@ void setup() {
 }
 
 void draw() {
+  stroke(0);
   smooth();
   fill(256, 256, 256);
   rect(0, 0, 799, 399);
@@ -54,11 +55,18 @@ void draw() {
     }
   }
 
-  if (sorted == true) {
+  if (sorted == true) { //<>//
     points = heap.getArray();
     for (int i = 0; i < heap.getArray().length; ++i) {
+      stroke(0, 191, 255);
       text( Integer.toString(i), points[i].getX(), points[i].getY() );
     }
+    
+    for(int i = 0; i < heap.getArray().length - 1; ++i) {
+      line(points[i].getX(), points[i].getY(), points[i + 1].getX(), points[i + 1].getY());
+    }
+    stroke(0, 255, 0);
+      line(points[points.length - 1].getX(), points[points.length - 1].getY(), points[0].getX(), points[0].getY());
 
     /*****
      for(int i = 0; i < scan.stack.counter - 1; i++) {
