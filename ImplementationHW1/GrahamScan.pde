@@ -4,22 +4,17 @@ class GrahamScan {
   Heap heap;
   Point bottomPoint;
   Stack stack;
-
+  boolean done;
+  /**
+   * Set up the stack for the first time.
+   */
   GrahamScan(Heap heap) {
     this.heap = heap;
     setStack( new Stack( heap.getArray().length) );
-
     stack.push( heap.getArray()[ 0 ] );
     stack.push( heap.getArray()[ 1 ] );
     stack.push( heap.getArray()[ 2 ] );
-
-    for ( int i = 3; i < heap.getArray().length; ++i ) {
-      while ( !isLeftTurn( stack.top(), stack.peekNextToTop(), heap.getArray()[ i ] ) ) {
-        stack.pop();
-      }
-      stack.push( heap.getArray()[ i ] );
-    }
-
+    done = false;
   }
 
   boolean isLeftTurn(Point p1, Point p0, Point p2) {
@@ -35,5 +30,24 @@ class GrahamScan {
 
   Stack getStack() {
     return this.stack;
+  }
+  
+  void oneStep( int iteration ) {
+    if ( !( iteration < heap.getArray().length ) ) {
+      done = true;
+      return;
+    }
+
+    while ( !isLeftTurn( stack.top(), stack.peekNextToTop(), heap.getArray()[ iteration ] ) ) {
+      stack.pop();
+    }
+
+    stack.push( heap.getArray()[ iteration ] );
+  }
+  
+  
+  
+  boolean isDone() {
+    return done;
   }
 }
