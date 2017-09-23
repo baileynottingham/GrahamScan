@@ -59,12 +59,10 @@ void draw() {
     for (int i = 0; i < heap.getArray().length; ++i) {
       text( Integer.toString(i), points[i].getX(), points[i].getY() );
     }
-
-    /*****
-     for(int i = 0; i < scan.stack.counter - 1; i++) {
-     text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
-     line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
-     } *****/
+    for (int i = 0; i < scan.stack.counter - 1; i++) {
+      text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
+      line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
+    }
   }
 }
 
@@ -104,8 +102,9 @@ void processFile( String fileName ) {
 }
 
 void handleSortButton() {
-  scan = new GrahamScan( heap );
+  heap.heapSort();
   sorted = true;
+  scan = new GrahamScan( heap );
 }
 
 void restart() {

@@ -6,33 +6,34 @@ class GrahamScan {
   Stack stack;
 
   GrahamScan(Heap heap) {
-    heap.heapSort();
-    /*****
     this.heap = heap;
+    setStack( new Stack( heap.getArray().length) );
 
-    stack = new Stack( heap.getArray().length );
+    stack.push( heap.getArray()[ 0 ] );
+    stack.push( heap.getArray()[ 1 ] );
+    stack.push( heap.getArray()[ 2 ] );
 
-    stack.push(heap.getArray()[1]);
-    stack.push(heap.getArray()[2]);
-    stack.push(heap.getArray()[3]);
-    for (int i = 4; i < heap.getArray().length - 1; i++) {
-      while (notLeftTurn(stack.peekNextToTop(), stack.top(), heap.getArray()[i]) && stack.counter != 2) {
+    for ( int i = 3; i < heap.getArray().length; ++i ) {
+      while ( !isLeftTurn( stack.top(), stack.peekNextToTop(), heap.getArray()[ i ] ) ) {
         stack.pop();
       }
-      stack.push(heap.getArray()[i]);
+      stack.push( heap.getArray()[ i ] );
     }
-    println("Stack");
-    printArray(stack.stackArray);
-    *****/
+
   }
 
-  boolean notLeftTurn(Point p1, Point p2, Point p3) {
-    int comparison = ((p1.getX() - p2.getX()) * (p3.getY() - p2.getY()) - (p3.getX() - p2.getX()) * (p1.getY() - p2.getY()));
-    if (comparison < 0) {
-      return true;
-    } else {
-      return false;
-    }
+  boolean isLeftTurn(Point p1, Point p0, Point p2) {
+    int tmp1 = ( p1.getX() - p0.getX() ) * ( p2.getY() - p0.getY() );
+    int tmp2 = ( p2.getX() - p0.getX() ) * (p1.getY()  - p0.getY());
+    int cross = tmp1 - tmp2;
+    return cross > 0;
   }
 
+  void setStack( Stack s ) {
+    stack = s;
+  }
+
+  Stack getStack() {
+    return this.stack;
+  }
 }
