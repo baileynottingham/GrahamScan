@@ -1,4 +1,4 @@
-/** //<>//
+/**
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
@@ -6,7 +6,7 @@
 //Buttons
 Button readFileButton;
 Button restartButton;
-Button nextButton;
+Button grahamScanButton;
 Button sortButton;
 Button quitButton;
 Button partyButton;
@@ -18,6 +18,7 @@ Heap heap;
 GrahamScan scan;
 
 boolean sorted = false;
+int grahamScanButtonClicked = 2;
 
 void setup() {
   size(800, 500);
@@ -27,7 +28,7 @@ void setup() {
   restartButton = new Button("Restart", 15, 450, 115, 35);
   readFileButton = new Button("Read File", 145, 450, 115, 35);
   sortButton = new Button("Sort", 275, 450, 115, 35);
-  nextButton = new Button("Next", 405, 450, 115, 35);
+  grahamScanButton = new Button("Graham Scan", 405, 450, 115, 35);
   quitButton = new Button("Quit", 535, 450, 115, 35);
 }
 
@@ -54,7 +55,7 @@ void draw() {
       ellipse( p.getX(), p.getY(), 10, 10 );
     }
   }
-
+ //<>//
   if (sorted == true) { //<>//
     points = heap.getArray();
     for (int i = 0; i < heap.getArray().length; ++i) {
@@ -97,7 +98,7 @@ void mousePressed() {
     handleSortButton();
   }
   // user presses "Next"
-  else if (nextButton.mouseOver()) {
+  else if (grahamScanButton.mouseOver()) {
     javax.swing.JOptionPane.showMessageDialog(null, "Next Button Pressed ");
   }
 }
@@ -106,6 +107,13 @@ void handleReadFileButton() {
   fileName = javax.swing.JOptionPane.showInputDialog( null, "File Name", "" );
   processFile( fileName );
 }
+
+void handlegrahamscanButton() {
+    if (grahamScanButtonClicked++ == 2 ) {
+      scan = new GrahamScan( heap );
+    }
+   // scan.oneStep( grahamScanButtonClicked );
+  }
 
 void processFile( String fileName ) {
   heap = new Heap( fileName );
@@ -127,6 +135,6 @@ void drawButtons() {
   restartButton.drawButton();
   readFileButton.drawButton();
   sortButton.drawButton();
-  nextButton.drawButton();
+  grahamScanButton.drawButton();
   quitButton.drawButton();
 }
