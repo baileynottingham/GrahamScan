@@ -1,4 +1,4 @@
-/**
+/** //<>//
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
@@ -55,27 +55,29 @@ void draw() {
       ellipse( p.getX(), p.getY(), 10, 10 );
     }
   }
- //<>//
-  if (sorted == true) { //<>//
+
+  if (sorted == true) {
     points = heap.getArray();
     for (int i = 0; i < heap.getArray().length; ++i) {
       stroke(0, 191, 255);
       text( Integer.toString(i), points[i].getX(), points[i].getY() );
     }
 
-    
-    for(int i = 0; i < heap.getArray().length - 1; ++i) {
+
+    for (int i = 0; i < heap.getArray().length - 1; ++i) {
       line(points[i].getX(), points[i].getY(), points[i + 1].getX(), points[i + 1].getY());
     }
     stroke(0, 255, 0);
-      line(points[points.length - 1].getX(), points[points.length - 1].getY(), points[0].getX(), points[0].getY());
-
-    /*****
-     for(int i = 0; i < scan.stack.counter - 1; i++) {
-     text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
-     line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
-     } *****/
-
+    line(points[points.length - 1].getX(), points[points.length - 1].getY(), points[0].getX(), points[0].getY());
+  }
+  if ( scan != null ) {
+    for (int i = 0; i < scan.stack.counter - 1; i++) {
+      text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
+      line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
+    }
+    if ( scan.isDone() ) {
+      line(scan.stack.stackArray[scan.stack.counter - 1].getX(), scan.stack.stackArray[scan.stack.counter - 1].getY(), scan.stack.stackArray[0].getX(), scan.stack.stackArray[ 0 ].getY());
+    }
   }
 }
 
@@ -99,7 +101,7 @@ void mousePressed() {
   }
   // user presses "Next"
   else if (grahamScanButton.mouseOver()) {
-    javax.swing.JOptionPane.showMessageDialog(null, "Next Button Pressed ");
+    handlegrahamscanButton();
   }
 }
 
@@ -109,11 +111,15 @@ void handleReadFileButton() {
 }
 
 void handlegrahamscanButton() {
-    if (grahamScanButtonClicked++ == 2 ) {
-      scan = new GrahamScan( heap );
-    }
-   // scan.oneStep( grahamScanButtonClicked );
+  if ( !sorted ) {
+    return;
   }
+
+  if (grahamScanButtonClicked++ == 2 ) {
+    scan = new GrahamScan( heap );
+  }
+  scan.oneStep( grahamScanButtonClicked );
+}
 
 void processFile( String fileName ) {
   heap = new Heap( fileName );
@@ -124,7 +130,6 @@ void processFile( String fileName ) {
 void handleSortButton() {
   heap.heapSort();
   sorted = true;
-  scan = new GrahamScan( heap );
 }
 
 void restart() {
