@@ -31,7 +31,7 @@ class GrahamScan {
   Stack getStack() {
     return this.stack;
   }
-  
+
   void oneStep( int iteration ) {
     if ( !( iteration < heap.getArray().length ) ) {
       done = true;
@@ -44,10 +44,29 @@ class GrahamScan {
 
     stack.push( heap.getArray()[ iteration ] );
   }
-  
-  
-  
+
+
+
   boolean isDone() {
     return done;
+  }
+
+  /**
+   * Return a new stack that does all of the graham scan algorithm all at once. 
+   * It's too much work to figure out what iteration we are in, and finishing the algorith. 
+   * So that is why we just do the algorithm again.
+   */
+  Stack convexHull() {
+    Stack stk = new Stack( heap.getArray().length);
+    stk.push( heap.getArray()[ 0 ] );
+    stk.push( heap.getArray()[ 1 ] );
+    stk.push( heap.getArray()[ 2 ] );
+    for ( int i = 3; i < heap.getArray().length; ++i ) {
+      while ( !isLeftTurn( stk.top(), stk.peekNextToTop(), heap.getArray()[ i ] ) ) {
+        stk.pop();
+      }
+      stk.push( heap.getArray()[ i ] );
+    }
+    return stk;
   }
 }

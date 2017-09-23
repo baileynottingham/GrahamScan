@@ -11,7 +11,8 @@ Button sortButton;
 Button quitButton;
 Button partyButton;
 Point[] points = null;
-String fileName = null; 
+String fileName = null;
+Button convexHullButton;
 
 Point point;
 Heap heap;
@@ -30,6 +31,7 @@ void setup() {
   sortButton = new Button("Sort", 275, 450, 115, 35);
   grahamScanButton = new Button("Graham Scan", 405, 450, 115, 35);
   quitButton = new Button("Quit", 535, 450, 115, 35);
+  convexHullButton = new Button( "Convex Hull", 665, 450, 115, 35 );
 }
 
 void draw() {
@@ -102,6 +104,8 @@ void mousePressed() {
   // user presses "Next"
   else if (grahamScanButton.mouseOver()) {
     handlegrahamscanButton();
+  } else if ( convexHullButton.mouseOver() ) {
+    handleConvexHullButton();
   }
 }
 
@@ -132,6 +136,26 @@ void handleSortButton() {
   sorted = true;
 }
 
+
+/**
+ * Just recreate everything.
+ **/
+void handleConvexHullButton() {
+  Heap h = new Heap( fileName );
+  h.heapSort();
+  GrahamScan gs = new GrahamScan( h );
+  Stack s = gs.convexHull();
+  String fileNames[] = fileName.split( ".in" );
+  String outputFile = fileNames[ 0 ] + ".out";
+  PrintWriter output = createWriter( outputFile );
+  Point[] p = s.stackArray;
+  for ( int i = p.length - 1; i >= 0; --i ) {
+    output.println( p[i].getX() + ", " + p[i].getY() + ", " + i );
+  }
+  output.flush();
+  output.close();
+}
+
 void restart() {
 }
 
@@ -142,4 +166,5 @@ void drawButtons() {
   sortButton.drawButton();
   grahamScanButton.drawButton();
   quitButton.drawButton();
+  convexHullButton.drawButton();
 }
