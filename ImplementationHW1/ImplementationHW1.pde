@@ -56,9 +56,10 @@ void draw() {
 
   if (sorted == true) {
     points = heap.getArray();
-    for (int i = 1; i < heap.getArray().length; ++i) {
-      text( Integer.toString(i-1), points[i].getX(), points[i].getY() );
+    for (int i = 0; i < heap.getArray().length; ++i) {
+      text( Integer.toString(i), points[i].getX(), points[i].getY() );
     }
+
     /*****
      for(int i = 0; i < scan.stack.counter - 1; i++) {
      text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
@@ -68,8 +69,6 @@ void draw() {
 }
 
 void mousePressed() {
-
-
   // user presses "Restart"
   if (restartButton.mouseOver()) {
     javax.swing.JOptionPane.showMessageDialog(null, "restart Button Pressed ");
@@ -105,7 +104,7 @@ void processFile( String fileName ) {
 }
 
 void handleSortButton() {
-  scan = new GrahamScan(heap);
+  scan = new GrahamScan( heap );
   sorted = true;
 }
 

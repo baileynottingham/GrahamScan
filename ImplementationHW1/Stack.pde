@@ -6,6 +6,7 @@
  */
 
 class Stack {
+
   Point[] stackArray;
   private int top;
   int counter = 0;
@@ -60,4 +61,5 @@ class Stack {
   public boolean isFull() {
     return ( top == stackArray.length - 1 );
   }
+
 }

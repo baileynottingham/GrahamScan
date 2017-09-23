@@ -6,9 +6,11 @@ class GrahamScan {
   Stack stack;
 
   GrahamScan(Heap heap) {
+    heap.heapSort();
+    /*****
     this.heap = heap;
 
-    stack = new Stack(heap.getArray().length);
+    stack = new Stack( heap.getArray().length );
 
     stack.push(heap.getArray()[1]);
     stack.push(heap.getArray()[2]);
@@ -21,6 +23,7 @@ class GrahamScan {
     }
     println("Stack");
     printArray(stack.stackArray);
+    *****/
   }
 
   boolean notLeftTurn(Point p1, Point p2, Point p3) {

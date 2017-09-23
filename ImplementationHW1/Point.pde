@@ -34,7 +34,6 @@ class Point {
   Point clone() {
     return new Point(this.x, this.y);
   }
-  
 
   String toString() {
     return "(" + x +", " + y + ")";
