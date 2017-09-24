@@ -5,8 +5,7 @@ class GrahamScan {
   Point bottomPoint;
   Stack stack;
   boolean done;
-  /**
-   * Set up the stack for the first time.
+  Point justPoppedOff = null;;   /* Set up the stack for the first time.
    */
   GrahamScan(Heap heap) {
     this.heap = heap;
@@ -39,9 +38,8 @@ class GrahamScan {
     }
 
     while ( !isLeftTurn( stack.top(), stack.peekNextToTop(), heap.getArray()[ iteration ] ) ) {
-      stack.pop();
+      justPoppedOff = stack.pop();
     }
-
     stack.push( heap.getArray()[ iteration ] );
   }
 
@@ -61,7 +59,7 @@ class GrahamScan {
     stk.push( heap.getArray()[ 0 ] );
     stk.push( heap.getArray()[ 1 ] );
     stk.push( heap.getArray()[ 2 ] );
-    for ( int i = 3; i < heap.getArray().length; ++i ) {
+    for ( int i = 3; i < heap.getArray().length - 1; ++i ) {
       while ( !isLeftTurn( stk.top(), stk.peekNextToTop(), heap.getArray()[ i ] ) ) {
         stk.pop();
       }

@@ -1,4 +1,4 @@
-/** //<>// //<>//
+/** //<>//
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
@@ -13,20 +13,13 @@ Button partyButton;
 Point[] points = null;
 String fileName = null;
 Button convexHullButton;
-Point lastOnStack;
-boolean isItDone = false;
-boolean convexHullLines = false;
-GrahamScan gs;
-Stack s;
 
 Point point;
 Heap heap;
 GrahamScan scan;
-Point poppedOff = null;
 
 boolean sorted = false;
 int grahamScanButtonClicked = 2;
-boolean printSortedLines = false;
 
 void setup() {
   size(800, 500);
@@ -37,8 +30,8 @@ void setup() {
   readFileButton = new Button("Read File", 145, 450, 115, 35);
   sortButton = new Button("Sort", 275, 450, 115, 35);
   grahamScanButton = new Button("Graham Scan", 405, 450, 115, 35);
-  convexHullButton = new Button("Convex Hull", 535, 450, 115, 35);
-  quitButton = new Button( "Quit", 665, 450, 115, 35 );
+  quitButton = new Button("Quit", 535, 450, 115, 35);
+  convexHullButton = new Button( "Convex Hull", 665, 450, 115, 35 );
 }
 
 void draw() {
@@ -55,69 +48,45 @@ void draw() {
   textAlign(LEFT, TOP);
   text( (fileName != null ? ( "You're working with: " + fileName ) : "Select \"Read File\" to begin"), 10, 410, width, height);
   fill(250, 0, 0);
-  if (points != null) { //<>//
+  if (points != null) {
     stroke(0);
     for ( Point p : points ) {
-      if ( p == null) {
+      if ( p == null ) {
         continue;
       }
-      if (poppedOff != null && isItDone == false) {
-        if (p.isEqual(poppedOff)) {
-          fill(0, 255, 0);
-          ellipse( p.getX(), p.getY(), 10, 10);
-        } else {
-          fill(250, 0, 0);
-          ellipse( p.getX(), p.getY(), 10, 10);
-        }
-      } else {
-        fill(250, 0, 0);
-        ellipse( p.getX(), p.getY(), 10, 10);
-      }
-    }
-    for (int i = 0; i < heap.getArray().length; ++i) {
-      fill(0, 191, 255);
-      text( Integer.toString(i), points[i].getX(), points[i].getY() );
+      ellipse( p.getX(), p.getY(), 10, 10 );
     }
   }
 
   if (sorted == true) {
     points = heap.getArray();
-    if (printSortedLines) {
-      for (int i = 0; i < heap.getArray().length; ++i) {
-        stroke(0, 191, 255);
-        text( Integer.toString(i), points[i].getX(), points[i].getY() );
-      }
-
-      stroke(0, 255, 0);
-      for (int i = 0; i < heap.getArray().length - 1; ++i) {
-        line(points[i].getX(), points[i].getY(), points[i + 1].getX(), points[i + 1].getY());
-      }
-      stroke(128, 0, 128);
-      line(points[points.length - 1].getX(), points[points.length - 1].getY(), points[0].getX(), points[0].getY());
+    for (int i = 0; i < heap.getArray().length; ++i) {
+      stroke(0, 191, 255);
+      text( Integer.toString(i), points[i].getX(), points[i].getY() );
     }
+
+
+    for (int i = 0; i < heap.getArray().length - 1; ++i) {
+      line(points[i].getX(), points[i].getY(), points[i + 1].getX(), points[i + 1].getY());
+    }
+    stroke(0, 255, 0);
+    line(points[points.length - 1].getX(), points[points.length - 1].getY(), points[0].getX(), points[0].getY());
   }
   if ( scan != null ) {
     for (int i = 0; i < scan.stack.counter - 1; i++) {
-      // text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
+      text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
       line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
     }
     if ( scan.isDone() ) {
       line(scan.stack.stackArray[scan.stack.counter - 1].getX(), scan.stack.stackArray[scan.stack.counter - 1].getY(), scan.stack.stackArray[0].getX(), scan.stack.stackArray[ 0 ].getY());
     }
   }
-  if (convexHullLines == true) {
-    for (int i = 0; i < gs.stack.counter - 1; i++) {
-      // text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
-      line(gs.stack.stackArray[i].getX(), gs.stack.stackArray[i].getY(), gs.stack.stackArray[i + 1].getX(), gs.stack.stackArray[i + 1].getY());
-    }
-    line(gs.stack.stackArray[gs.stack.counter - 1].getX(), gs.stack.stackArray[gs.stack.counter - 1].getY(), gs.stack.stackArray[0].getX(), gs.stack.stackArray[ 0 ].getY());
-  }
 }
 
 void mousePressed() {
   // user presses "Restart"
   if (restartButton.mouseOver()) {
-  //  javax.swing.JOptionPane.showMessageDialog(null, "restart Button Pressed ");
+    javax.swing.JOptionPane.showMessageDialog(null, "restart Button Pressed ");
     restart();
   }
   // user presses "Read File" or "Read New File"
@@ -135,8 +104,7 @@ void mousePressed() {
   // user presses "Next"
   else if (grahamScanButton.mouseOver()) {
     handlegrahamscanButton();
-  } else if ( convexHullButton.mouseOver() ) {
-    handleConvexHullButton();
+
   }
 }
 
@@ -147,18 +115,14 @@ void handleReadFileButton() {
 
 void handlegrahamscanButton() {
   if ( !sorted ) {
-    javax.swing.JOptionPane.showMessageDialog(null, "Please press 'Sort' before you begin Graham Scan");
     return;
+
   }
 
   if (grahamScanButtonClicked++ == 2 ) {
     scan = new GrahamScan( heap );
   }
-  printSortedLines = false;
-  lastOnStack = scan.stack.top();
   scan.oneStep( grahamScanButtonClicked );
-  poppedOff = scan.justPoppedOff;
-  isItDone = scan.done;
 }
 
 void processFile( String fileName ) {
@@ -170,7 +134,7 @@ void processFile( String fileName ) {
 void handleSortButton() {
   heap.heapSort();
   sorted = true;
-  printSortedLines = true;
+
 }
 
 
@@ -178,44 +142,23 @@ void handleSortButton() {
  * Just recreate everything.
  **/
 void handleConvexHullButton() {
-  heap = new Heap( fileName );
-  heap.heapSort();
-  gs = new GrahamScan( heap );
-  sorted = true;
-  scan = null;
-  poppedOff = null;
-  printSortedLines = false;
-  convexHullLines = true;
-  int countBelow = 2;
-  while (gs.isDone() == false) {
-    gs.oneStep(countBelow++);
-  }
+  Heap h = new Heap( fileName );
+  h.heapSort();
+  GrahamScan gs = new GrahamScan( h );
+  Stack s = gs.convexHull();
   String fileNames[] = fileName.split( ".in" );
   String outputFile = fileNames[ 0 ] + ".out";
   PrintWriter output = createWriter( outputFile );
-  // Point[] p = gs.stack.stackArray;
-  for ( int i = gs.stack.counter - 1; i > 0; --i ) {
-    output.println( gs.stack.stackArray[i].getX() + ", " + gs.stack.stackArray[i].getY() + ", " + i );
+  Point[] p = s.stackArray;
+  for ( int i = p.length - 1; i >= 0; --i ) {
+    output.println( p[i].getX() + ", " + p[i].getY() + ", " + i );
   }
   output.flush();
   output.close();
+
 }
 
 void restart() {
-  points = null;
-  fileName = null;
-  isItDone = false;
-  convexHullLines = false;
-  gs = null;
-  s = null;
-  point = null;
-  heap = null;
-  scan = null;
-  poppedOff = null;
-
-  sorted = false;
-  grahamScanButtonClicked = 2;
-  printSortedLines = false;
 }
 
 void drawButtons() {
