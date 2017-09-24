@@ -1,4 +1,4 @@
-class Heap { //<>// //<>// //<>// //<>//
+class Heap { //<>// //<>// //<>// //<>// //<>//
   Point[] points;
   int heapsize;
   Point pivot;
