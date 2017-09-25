@@ -26,6 +26,7 @@ Point poppedOff = null;
 boolean sorted = false;
 int grahamScanButtonClicked = 2;
 boolean printSortedLines = false;
+boolean restartScreen = true;
 
 void setup() {
   size(800, 500);
@@ -54,8 +55,14 @@ void draw() {
   textAlign(LEFT, TOP);
   text( (fileName != null ? ( "You're working with: " + fileName ) : "Select \"Read File\" to begin"), 10, 410, width, height);
   fill(250, 0, 0);
+  if (restartScreen == true) { //<>//
+    fill(0, 191, 255);
+    text( "Implementation Homework #1", 275, 50);
+    text( "Bailey Nottingham & Mario Hernandez", 250, 100);
+    text( "Graham's Scan Algorithim", 290, 150);
+  }
   if (points != null) {
-    stroke(0); //<>//
+    stroke(0);
     for ( Point p : points ) {
       if ( p == null) {
         continue;
@@ -104,11 +111,11 @@ void draw() {
       line(scan.stack.stackArray[scan.stack.counter - 1].getX(), scan.stack.stackArray[scan.stack.counter - 1].getY(), scan.stack.stackArray[0].getX(), scan.stack.stackArray[ 0 ].getY());
     }
     // Print Stack
-    fill(0,0, 0);
+    fill(0, 0, 0);
     text( "Stack", 725, 10);
     int xAxis = 705;
     int yAxis = 10;
-    for(int i = 0; i < scan.stack.counter; i++) {
+    for (int i = 0; i < scan.stack.counter; i++) {
       yAxis = yAxis + 25;
       // Top Horizontal Line
       line(xAxis, yAxis, xAxis + 85, yAxis);
@@ -129,11 +136,11 @@ void draw() {
     }
     line(gs.stack.stackArray[gs.stack.counter - 1].getX(), gs.stack.stackArray[gs.stack.counter - 1].getY(), gs.stack.stackArray[0].getX(), gs.stack.stackArray[ 0 ].getY());
     // Print Stack
-    fill(0,0, 0);
+    fill(0, 0, 0);
     text( "Stack", 725, 10);
     int xAxis = 705;
     int yAxis = 10;
-    for(int i = 0; i < gs.stack.counter; i++) {
+    for (int i = 0; i < gs.stack.counter; i++) {
       yAxis = yAxis + 25;
       // Top Horizontal Line
       line(xAxis, yAxis, xAxis + 85, yAxis);
@@ -180,10 +187,20 @@ void handleReadFileButton() {
 }
 
 void handlegrahamscanButton() {
+  if (restartScreen == true) {
+    javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
+    return;
+  }
+
   if ( !sorted ) {
     javax.swing.JOptionPane.showMessageDialog(null, "Please press 'Sort' before you begin Graham Scan");
     return;
   }
+
+  if ( gs != null) {
+    return;
+  }
+
 
   if (grahamScanButtonClicked++ == 2 ) {
     scan = new GrahamScan( heap );
@@ -195,12 +212,27 @@ void handlegrahamscanButton() {
 }
 
 void processFile( String fileName ) {
+  restartScreen = false;
+  convexHullLines = false;
+  scan = null;
+  gs = null;
+  sorted = false;
+  printSortedLines = false;
+  grahamScanButtonClicked = 2;
   heap = new Heap( fileName );
   points = heap.getArray();
   return;
 }
 
 void handleSortButton() {
+  if (restartScreen == true) {
+    javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
+    return;
+  }
+  restartScreen = false;
+  scan = null;
+  gs = null;
+  grahamScanButtonClicked = 2;
   convexHullLines = false;
   heap.heapSort();
   sorted = true;
@@ -208,10 +240,17 @@ void handleSortButton() {
 }
 
 
+
+
 /**
  * Just recreate everything.
  **/
 void handleConvexHullButton() {
+  if (restartScreen == true) {
+    javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
+    return;
+  }
+  restartScreen = false;
   heap = new Heap( fileName );
   heap.heapSort();
   gs = new GrahamScan( heap );
@@ -235,6 +274,7 @@ void handleConvexHullButton() {
 }
 
 void restart() {
+  restartScreen = true;
   points = null;
   fileName = null;
   isItDone = false;

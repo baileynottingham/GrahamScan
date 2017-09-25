@@ -27,10 +27,10 @@ class Button {
   }//End Constructor
 
   //set to allow changing button text
-  void setText(String text){
+  void setText(String text) {
     label = text;
   }
-  
+
   /*
     * buttonDraw()
    * Makes button on window
@@ -42,7 +42,7 @@ class Button {
     textAlign(CENTER, CENTER);
     fill(0);
     text(label, x+ (w/2), y+(h/2)); //Aligns text inside button
-    fill(256,256,256);
+    fill(256, 256, 256);
   }
 
   /*

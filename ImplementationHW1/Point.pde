@@ -30,20 +30,20 @@ class Point {
   void setY(int y) {
     this.y = y;
   }
-  
+
   Point clone() {
     return new Point(this.x, this.y);
   }
-  
+
   boolean isEqual(Point pt) {
-    if(pt == null) {
-       return false;
+    if (pt == null) {
+      return false;
     }
-    
-   if(this.x == pt.getX() && this.y == pt.getY()) {
-    return true; 
-   }
-   return false;
+
+    if (this.x == pt.getX() && this.y == pt.getY()) {
+      return true;
+    }
+    return false;
   }
 
   String toString() {
