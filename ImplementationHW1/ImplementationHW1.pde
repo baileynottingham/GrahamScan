@@ -1,4 +1,7 @@
-/*  //<>//
+/* //<>//
+ * @file ImplementationHW1.pde
+ * @description This file contains the GUI objects, handles button clicks, 
+ *               and draws the current state of Heap, GrahamScan, and Stack.
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
@@ -28,6 +31,9 @@ int grahamScanButtonClicked = 2;
 boolean printSortedLines = false;
 boolean restartScreen = true;
 
+/**
+ * Sets up the frame, and instantates our clickable buttons.
+ */
 void setup() {
   size(800, 500);
   smooth();
@@ -41,6 +47,9 @@ void setup() {
   quitButton = new Button( "Quit", 665, 450, 115, 35 );
 }
 
+/**
+ * Draws the state of the buttons, points, stack, and graham scan lines. 
+ */
 void draw() {
   stroke(0);
   smooth();
@@ -154,6 +163,9 @@ void draw() {
   }
 }
 
+/**
+ * Listens for button clicks, and delegates the task to respective method.
+ */
 void mousePressed() {
   // user presses "Restart"
   if (restartButton.mouseOver()) {
@@ -180,11 +192,19 @@ void mousePressed() {
   }
 }
 
+/**
+ * Handles loading the contents of the file into memory.
+ */
 void handleReadFileButton() {
   fileName = javax.swing.JOptionPane.showInputDialog( null, "File Name", "" );
   processFile( fileName );
 }
 
+/**
+ * Handles going through one step of the graham scan algorithm. 
+ * @requires valid file contents
+ * @requires sorted points 
+ */
 void handlegrahamscanButton() {
   if (restartScreen == true) {
     javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
@@ -210,6 +230,9 @@ void handlegrahamscanButton() {
   isItDone = scan.done;
 }
 
+/**
+ * Sets up the needed object, and passes the resposibility of parsing the file to the Heap constructor.
+ */
 void processFile( String fileName ) {
   restartScreen = false;
   convexHullLines = false;
@@ -223,6 +246,9 @@ void processFile( String fileName ) {
   return;
 }
 
+/**
+ * Sorts the points via heap sort.
+ */
 void handleSortButton() {
   if (restartScreen == true) {
     javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
@@ -272,6 +298,9 @@ void handleConvexHullButton() {
   output.close();
 }
 
+/**
+ * 'Zero' everything out.
+ */
 void restart() {
   restartScreen = true;
   points = null;
@@ -290,6 +319,9 @@ void restart() {
   printSortedLines = false;
 }
 
+/**
+ * Inherited from gui_skeleton authors.
+ */
 void drawButtons() {
   readFileButton.setText("Read File");
   restartButton.drawButton();
