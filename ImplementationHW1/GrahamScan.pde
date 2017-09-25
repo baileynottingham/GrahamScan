@@ -1,4 +1,8 @@
-
+/**
+ * @description Uses a stack, and a max-heap to create a convex hull of the points heap.getArray. 
+ * @author Bailey Nottingham
+ * @author Mario Hernandez
+ */
 class GrahamScan {
 
   Heap heap;
@@ -6,7 +10,8 @@ class GrahamScan {
   Stack stack;
   boolean done;
   Point justPoppedOff = null;
-  ;   /* Set up the stack for the first time.
+
+  /* Set up the stack for the first time.
    */
   GrahamScan(Heap heap) {
     this.heap = heap;
@@ -17,6 +22,9 @@ class GrahamScan {
     done = false;
   }
 
+  /**
+   * We only want to make left turns.
+   */
   boolean isLeftTurn(Point p1, Point p0, Point p2) {
     int tmp1 = ( p1.getX() - p0.getX() ) * ( p2.getY() - p0.getY() );
     int tmp2 = ( p2.getX() - p0.getX() ) * (p1.getY()  - p0.getY());
@@ -32,6 +40,9 @@ class GrahamScan {
     return this.stack;
   }
 
+  /**
+   * Follows one iteration of graham scan algorithm. 
+   */
   void oneStep( int iteration ) {
     if ( !( iteration < heap.getArray().length ) ) {
       done = true;

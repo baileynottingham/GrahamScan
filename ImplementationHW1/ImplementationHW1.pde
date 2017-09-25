@@ -1,4 +1,4 @@
-/* //<>// //<>//
+/* //<>//
  * @file ImplementationHW1.pde
  * @description This file contains the GUI objects, handles button clicks, 
  *               and draws the current state of Heap, GrahamScan, and Stack.
@@ -64,7 +64,7 @@ void draw() {
   textAlign(LEFT, TOP);
   text( (fileName != null ? ( "You're working with: " + fileName ) : "Select \"Read File\" to begin"), 10, 410, width, height);
   fill(250, 0, 0);
-  if (restartScreen == true) { //<>// //<>// //<>//
+  if (restartScreen == true) { //<>// //<>//
     fill(0, 191, 255);
     text( "Implementation Homework #1", 275, 50);
     text( "Bailey Nottingham & Mario Hernandez", 250, 100);
