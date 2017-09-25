@@ -1,4 +1,4 @@
-/* //<>//
+/*  //<>//
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
@@ -55,7 +55,7 @@ void draw() {
   textAlign(LEFT, TOP);
   text( (fileName != null ? ( "You're working with: " + fileName ) : "Select \"Read File\" to begin"), 10, 410, width, height);
   fill(250, 0, 0);
-  if (restartScreen == true) { //<>//
+  if (restartScreen == true) { //<>// //<>//
     fill(0, 191, 255);
     text( "Implementation Homework #1", 275, 50);
     text( "Bailey Nottingham & Mario Hernandez", 250, 100);
@@ -131,7 +131,6 @@ void draw() {
   // Entire Convex Hull Print
   if (convexHullLines == true) {
     for (int i = 0; i < gs.stack.counter - 1; i++) {
-      // text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
       line(gs.stack.stackArray[i].getX(), gs.stack.stackArray[i].getY(), gs.stack.stackArray[i + 1].getX(), gs.stack.stackArray[i + 1].getY());
     }
     line(gs.stack.stackArray[gs.stack.counter - 1].getX(), gs.stack.stackArray[gs.stack.counter - 1].getY(), gs.stack.stackArray[0].getX(), gs.stack.stackArray[ 0 ].getY());
