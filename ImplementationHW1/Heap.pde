@@ -1,8 +1,18 @@
-class Heap { //<>//
+ //<>//
+/**
+ * @description Heap data strcutre that holds Points where each subtree's root is larger than it's children. 
+ *              The underlying primitive data structure is an array of points.
+ * @author Bailey Nottingham
+ * @author Mario Hernandez
+ */
+class Heap {
   Point[] points;
   int heapsize;
   Point pivot;
 
+  /**
+   * Initalize, and find lowest point.
+   */
   Heap( String filename ) {
     pivot = null;
     parseAndBuildInitialArray( filename );
@@ -10,7 +20,9 @@ class Heap { //<>//
     findAndSwapLowestPoint();
     setPivot( points[ 0 ] );
   }
-
+  /**
+   * Parse the file.
+   */
   void parseAndBuildInitialArray( String filename ) {
     BufferedReader reader;
     reader = createReader( filename );
@@ -20,6 +32,7 @@ class Heap { //<>//
         String[] ints = reader.readLine().split("\\s+");
         points[ i ] = new Point( Integer.parseInt( ints[ 0 ] ), Integer.parseInt( ints[ 1 ] ) );
       }
+      reader.close();
     }
     catch ( Exception e ) {
       System.err.println( "Error occured when parsing " + filename + ". Error msg: " + e.getMessage() );
@@ -29,6 +42,9 @@ class Heap { //<>//
     return;
   }
 
+  /**
+   * Find the left-lowest point.
+   */
   void findAndSwapLowestPoint() {
     int ymin = points[ 0 ].getY();
     int min = 0;
@@ -45,12 +61,21 @@ class Heap { //<>//
     setIndex( points[min], 0 );
     setIndex( temp, min );
   }
+
+  /**
+   * Call maxheapify from the middle all the way to the root.
+   * Runs in O(n) time.
+   */
   void buildHeap() {
     for ( int i = heapsize/2; i > 0; i-- ) {
       maxHeapify( points, i, heapsize );
     }
   }
 
+  /**
+   * Sorts the heap array from the last one to the second to last one.
+   * Runs in O( n * log(n) )
+   */
   void heapSort() {
     buildHeap();
     Point tmp = null;
@@ -63,6 +88,9 @@ class Heap { //<>//
     }
   }
 
+  /**
+   * Difuses the smaller points down the 'heap', and recursively calls its until it is a legal max-heap.
+   */
   void maxHeapify( Point[] points, int i, int size ) {
     int left = i * 2;
     int right = ( i * 2 ) + 1;
@@ -98,18 +126,27 @@ class Heap { //<>//
     points[i] = p;
   }
 
+  /**
+   * Calculate the cross product between 3 points. 
+   */
   int calculateCrossProduct( Point p1, Point p2 ) {
     int t1 = ( p1.getX() - getPivot().getX() ) * ( p2.getY() - getPivot().getY() );
     int t2 = ( p1.getY() - getPivot().getY() ) * ( p2.getX() - getPivot().getX() );
     return t1 - t2;
   }
 
-
+  /**
+   * Get the lowest-leftest point.
+   */
   public Point getPivot() {
     return this.pivot;
   }
 
+  /**
+   * Set the lowest-leftest point.
+   */
   public void setPivot( Point pivot ) {
     this.pivot = pivot;
   }
+
 }
