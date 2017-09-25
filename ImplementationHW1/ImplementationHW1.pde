@@ -1,4 +1,4 @@
-/** //<>// //<>//
+/* //<>//
  * @author Bailey Nottingham
  * @author Mario Hernandez
  */
@@ -13,7 +13,6 @@ Button partyButton;
 Point[] points = null;
 String fileName = null;
 Button convexHullButton;
-Point lastOnStack;
 boolean isItDone = false;
 boolean convexHullLines = false;
 GrahamScan gs;
@@ -55,8 +54,8 @@ void draw() {
   textAlign(LEFT, TOP);
   text( (fileName != null ? ( "You're working with: " + fileName ) : "Select \"Read File\" to begin"), 10, 410, width, height);
   fill(250, 0, 0);
-  if (points != null) { //<>//
-    stroke(0);
+  if (points != null) {
+    stroke(0); //<>//
     for ( Point p : points ) {
       if ( p == null) {
         continue;
@@ -98,7 +97,6 @@ void draw() {
   }
   if ( scan != null ) {
     for (int i = 0; i < scan.stack.counter - 1; i++) {
-      // text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
       line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
     }
     if ( scan.isDone() ) {
@@ -117,7 +115,7 @@ void draw() {
 void mousePressed() {
   // user presses "Restart"
   if (restartButton.mouseOver()) {
-  //  javax.swing.JOptionPane.showMessageDialog(null, "restart Button Pressed ");
+    //  javax.swing.JOptionPane.showMessageDialog(null, "restart Button Pressed ");
     restart();
   }
   // user presses "Read File" or "Read New File"
@@ -155,7 +153,6 @@ void handlegrahamscanButton() {
     scan = new GrahamScan( heap );
   }
   printSortedLines = false;
-  lastOnStack = scan.stack.top();
   scan.oneStep( grahamScanButtonClicked );
   poppedOff = scan.justPoppedOff;
   isItDone = scan.done;
@@ -168,6 +165,7 @@ void processFile( String fileName ) {
 }
 
 void handleSortButton() {
+  convexHullLines = false;
   heap.heapSort();
   sorted = true;
   printSortedLines = true;
@@ -193,7 +191,6 @@ void handleConvexHullButton() {
   String fileNames[] = fileName.split( ".in" );
   String outputFile = fileNames[ 0 ] + ".out";
   PrintWriter output = createWriter( outputFile );
-  // Point[] p = gs.stack.stackArray;
   for ( int i = gs.stack.counter - 1; i > 0; --i ) {
     output.println( gs.stack.stackArray[i].getX() + ", " + gs.stack.stackArray[i].getY() + ", " + i );
   }
