@@ -1,4 +1,4 @@
-/* //<>//
+/* //<>// //<>//
  * @file ImplementationHW1.pde
  * @description This file contains the GUI objects, handles button clicks, 
  *               and draws the current state of Heap, GrahamScan, and Stack.
@@ -55,7 +55,7 @@ void draw() {
   smooth();
   fill(256, 256, 256);
   rect(0, 0, 799, 399);
-
+ //<>//
   fill(0);
   rect(0, 400, 800, 100);
   fill(256, 256, 256);
@@ -234,15 +234,17 @@ void handlegrahamscanButton() {
  * Sets up the needed object, and passes the resposibility of parsing the file to the Heap constructor.
  */
 void processFile( String fileName ) {
-  restartScreen = false;
-  convexHullLines = false;
-  scan = null;
-  gs = null;
-  sorted = false;
-  printSortedLines = false;
-  grahamScanButtonClicked = 2;
-  heap = new Heap( fileName );
-  points = heap.getArray();
+  if (fileName != null) {
+    restartScreen = false;
+    convexHullLines = false;
+    scan = null;
+    gs = null;
+    sorted = false;
+    printSortedLines = false;
+    grahamScanButtonClicked = 2;
+    heap = new Heap( fileName );
+    points = heap.getArray();
+  }
   return;
 }
 
@@ -291,8 +293,8 @@ void handleConvexHullButton() {
   String fileNames[] = fileName.split( ".in" );
   String outputFile = fileNames[ 0 ] + ".out";
   PrintWriter output = createWriter( outputFile );
-  for ( int i = gs.stack.counter - 1; i > 0; --i ) {
-    output.println( gs.stack.stackArray[i].getX() + ", " + gs.stack.stackArray[i].getY() + ", " + i );
+  for ( int i = 0; i < gs.stack.counter; ++i ) {
+    output.println( gs.stack.stackArray[i].getX() + ", " + gs.stack.stackArray[i].getY() + ", " + gs.heap.getIndex(gs.stack.stackArray[i]));
   }
   output.flush();
   output.close();

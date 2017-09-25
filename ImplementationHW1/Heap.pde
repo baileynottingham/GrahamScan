@@ -1,4 +1,4 @@
-/** //<>//
+/** //<>// //<>//
  * @description Heap data strcutre that holds Points where each subtree's root is larger than it's children. 
  *              The underlying primitive data structure is an array of points.
  * @author Bailey Nottingham
@@ -123,6 +123,15 @@ class Heap {
 
   void setIndex(Point p, int i) {
     points[i] = p;
+  }
+  
+  int getIndex(Point pt) {
+   for(int i = 0; i < points.length; i++) {
+    if(pt.isEqual(points[i])) {
+     return i; 
+    }
+   }
+   return -1;
   }
 
   /**
