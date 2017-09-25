@@ -55,7 +55,7 @@ void draw() {
   textAlign(LEFT, TOP);
   text( (fileName != null ? ( "You're working with: " + fileName ) : "Select \"Read File\" to begin"), 10, 410, width, height);
   fill(250, 0, 0);
-  if(restartScreen == true) { //<>//
+  if (restartScreen == true) { //<>//
     fill(0, 191, 255);
     text( "Implementation Homework #1", 275, 50);
     text( "Bailey Nottingham & Mario Hernandez", 250, 100);
@@ -187,15 +187,20 @@ void handleReadFileButton() {
 }
 
 void handlegrahamscanButton() {
+  if (restartScreen == true) {
+    javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
+    return;
+  }
+
   if ( !sorted ) {
     javax.swing.JOptionPane.showMessageDialog(null, "Please press 'Sort' before you begin Graham Scan");
     return;
   }
 
   if ( gs != null) {
-    // javax.swing.JOptionPane.showMessageDialog(null, "Convex Hull already found, please re-sort or reset to graham scan again");
     return;
   }
+
 
   if (grahamScanButtonClicked++ == 2 ) {
     scan = new GrahamScan( heap );
@@ -220,6 +225,10 @@ void processFile( String fileName ) {
 }
 
 void handleSortButton() {
+  if (restartScreen == true) {
+    javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
+    return;
+  }
   restartScreen = false;
   scan = null;
   gs = null;
@@ -231,10 +240,16 @@ void handleSortButton() {
 }
 
 
+
+
 /**
  * Just recreate everything.
  **/
 void handleConvexHullButton() {
+  if (restartScreen == true) {
+    javax.swing.JOptionPane.showMessageDialog(null, "Please read file");
+    return;
+  }
   restartScreen = false;
   heap = new Heap( fileName );
   heap.heapSort();
