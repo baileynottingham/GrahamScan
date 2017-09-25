@@ -95,6 +95,7 @@ void draw() {
       line(points[points.length - 1].getX(), points[points.length - 1].getY(), points[0].getX(), points[0].getY());
     }
   }
+  // One-Step of Graham Scan Print
   if ( scan != null ) {
     for (int i = 0; i < scan.stack.counter - 1; i++) {
       line(scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY(), scan.stack.stackArray[i + 1].getX(), scan.stack.stackArray[i + 1].getY());
@@ -102,13 +103,48 @@ void draw() {
     if ( scan.isDone() ) {
       line(scan.stack.stackArray[scan.stack.counter - 1].getX(), scan.stack.stackArray[scan.stack.counter - 1].getY(), scan.stack.stackArray[0].getX(), scan.stack.stackArray[ 0 ].getY());
     }
+    // Print Stack
+    fill(0,0, 0);
+    text( "Stack", 725, 10);
+    int xAxis = 705;
+    int yAxis = 10;
+    for(int i = 0; i < scan.stack.counter; i++) {
+      yAxis = yAxis + 25;
+      // Top Horizontal Line
+      line(xAxis, yAxis, xAxis + 85, yAxis);
+      // Bottom Horizontal Line
+      line(xAxis, yAxis + 25, xAxis + 85, yAxis + 25);
+      // Left Vertical Line
+      line(xAxis, yAxis, xAxis, yAxis + 25);
+      // Right Vertical Line
+      line(xAxis + 85, yAxis, xAxis + 85, yAxis + 25);
+      text( scan.stack.stackArray[i].toString(), 705 + 2, yAxis + 2);
+    }
   }
+  // Entire Convex Hull Print
   if (convexHullLines == true) {
     for (int i = 0; i < gs.stack.counter - 1; i++) {
       // text(Integer.toString(i), scan.stack.stackArray[i].getX(), scan.stack.stackArray[i].getY());
       line(gs.stack.stackArray[i].getX(), gs.stack.stackArray[i].getY(), gs.stack.stackArray[i + 1].getX(), gs.stack.stackArray[i + 1].getY());
     }
     line(gs.stack.stackArray[gs.stack.counter - 1].getX(), gs.stack.stackArray[gs.stack.counter - 1].getY(), gs.stack.stackArray[0].getX(), gs.stack.stackArray[ 0 ].getY());
+    // Print Stack
+    fill(0,0, 0);
+    text( "Stack", 725, 10);
+    int xAxis = 705;
+    int yAxis = 10;
+    for(int i = 0; i < gs.stack.counter; i++) {
+      yAxis = yAxis + 25;
+      // Top Horizontal Line
+      line(xAxis, yAxis, xAxis + 85, yAxis);
+      // Bottom Horizontal Line
+      line(xAxis, yAxis + 25, xAxis + 85, yAxis + 25);
+      // Left Vertical Line
+      line(xAxis, yAxis, xAxis, yAxis + 25);
+      // Right Vertical Line
+      line(xAxis + 85, yAxis, xAxis + 85, yAxis + 25);
+      text( gs.stack.stackArray[i].toString(), 705 + 2, yAxis + 2);
+    }
   }
 }
 
