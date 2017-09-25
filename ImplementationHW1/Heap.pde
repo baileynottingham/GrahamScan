@@ -59,7 +59,7 @@ class Heap { //<>//
       points[ 1 ] = points[ i ];
       points[ i ] = tmp;
       heapsize -= 1;
-      maxHeapify( points, 1, heapsize ); 
+      maxHeapify( points, 1, heapsize );
     }
   }
 

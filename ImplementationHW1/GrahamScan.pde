@@ -5,7 +5,8 @@ class GrahamScan {
   Point bottomPoint;
   Stack stack;
   boolean done;
-  Point justPoppedOff = null;;   /* Set up the stack for the first time.
+  Point justPoppedOff = null;
+  ;   /* Set up the stack for the first time.
    */
   GrahamScan(Heap heap) {
     this.heap = heap;
